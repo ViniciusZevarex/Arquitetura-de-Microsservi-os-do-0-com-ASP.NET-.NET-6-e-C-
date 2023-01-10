@@ -6,7 +6,7 @@ namespace GeekShopping.Web.Utils
     public static class HttpClientExtensions
     {
 
-        private static MediaTypeHeaderValue contentType 
+        private static MediaTypeHeaderValue contentType
                                     = new MediaTypeHeaderValue("application/json");
 
 
@@ -45,9 +45,10 @@ namespace GeekShopping.Web.Utils
 
             var dataAsString = await response.Content.ReadAsStringAsync();
 
-            var resultObject = JsonSerializer.Deserialize<T>(dataAsString, new JsonSerializerOptions { 
-                                        PropertyNameCaseInsensitive = true 
-                                    });
+            var resultObject = JsonSerializer.Deserialize<T>(dataAsString, new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            });
 
             return resultObject;
         }

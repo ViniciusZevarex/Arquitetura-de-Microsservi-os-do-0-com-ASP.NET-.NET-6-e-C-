@@ -12,7 +12,7 @@ namespace GeekShopping.Web.Controllers
 
         private readonly IProductService _productService;
         public ProductController(
-            IProductService productService    
+            IProductService productService
         )
         {
             _productService = productService;
@@ -21,8 +21,7 @@ namespace GeekShopping.Web.Controllers
         [Authorize]
         public async Task<IActionResult> ProductIndex()
         {
-            var token = await HttpContext.GetTokenAsync("access_token");
-            var products = await _productService.FindAllProducts(token);
+            var products = await _productService.FindAllProducts("");
             return View(products);
         }
 
@@ -35,7 +34,7 @@ namespace GeekShopping.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> ProductCreate(ProductModel model)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 var token = await HttpContext.GetTokenAsync("access_token");
                 var response = await _productService.CreateProduct(model, token);

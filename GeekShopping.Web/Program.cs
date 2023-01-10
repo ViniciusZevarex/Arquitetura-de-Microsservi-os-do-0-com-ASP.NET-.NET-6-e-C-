@@ -7,7 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddHttpClient<IProductService, ProductService>(c =>
-        c.BaseAddress =  new Uri(builder.Configuration["ServicesUrls:ProductAPI"])
+        c.BaseAddress = new Uri(builder.Configuration["ServicesUrls:ProductAPI"])
     );
 
 builder.Services.AddControllersWithViews();
@@ -17,7 +17,7 @@ builder.Services.AddAuthentication(options =>
     options.DefaultScheme = "Cookies";
     options.DefaultChallengeScheme = "oidc";
 })
-    .AddCookie("Cookies", c => c.ExpireTimeSpan = TimeSpan.FromMinutes(10) )
+    .AddCookie("Cookies", c => c.ExpireTimeSpan = TimeSpan.FromMinutes(10))
     .AddOpenIdConnect("oidc", options =>
     {
         options.Authority = builder.Configuration["ServicesUrls:IdentityServer"];
@@ -25,8 +25,8 @@ builder.Services.AddAuthentication(options =>
         options.ClientId = "geek_shopping";
         options.ClientSecret = "my_super_secret";
         options.ResponseType = "code";
-        options.ClaimActions.MapJsonKey("role","role","role");
-        options.ClaimActions.MapJsonKey("sub","sub","sub");
+        options.ClaimActions.MapJsonKey("role", "role", "role");
+        options.ClaimActions.MapJsonKey("sub", "sub", "sub");
         options.TokenValidationParameters.NameClaimType = "name";
         options.TokenValidationParameters.RoleClaimType = "role";
         options.Scope.Add("geek_shopping");

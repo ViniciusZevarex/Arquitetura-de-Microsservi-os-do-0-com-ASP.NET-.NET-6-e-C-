@@ -12,7 +12,7 @@ namespace GeekShopping.Web.Services
         public const string BasePath = "api/v1/product";
 
         public ProductService(
-            HttpClient httpClient    
+            HttpClient httpClient
         )
         {
             _httpClient = httpClient;
