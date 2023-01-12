@@ -2,6 +2,7 @@
 using GeekShopping.CartAPI.Model.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -9,9 +10,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GeekShopping.CartAPI.Migrations
 {
     [DbContext(typeof(MySQLContext))]
-    partial class MySQLContextModelSnapshot : ModelSnapshot
+    [Migration("20230112103325_AlterCouponCodeColumnFromCardHeaderToNullable")]
+    partial class AlterCouponCodeColumnFromCardHeaderToNullable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -38,8 +40,6 @@ namespace GeekShopping.CartAPI.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CartHeaderId");
-
-                    b.HasIndex("ProductId");
 
                     b.ToTable("cart_detail");
                 });
@@ -114,7 +114,7 @@ namespace GeekShopping.CartAPI.Migrations
 
                     b.HasOne("GeekShopping.CartAPI.Model.Product", "Product")
                         .WithMany()
-                        .HasForeignKey("ProductId")
+                        .HasForeignKey("CartHeaderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

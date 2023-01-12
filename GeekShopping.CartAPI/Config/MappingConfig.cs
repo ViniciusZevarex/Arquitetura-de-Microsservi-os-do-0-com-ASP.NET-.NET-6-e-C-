@@ -13,7 +13,7 @@ namespace GeekShopping.CartAPI.Config
                 config.CreateMap<ProductVO, Product>().ReverseMap();
                 config.CreateMap<CartHeaderVO, CartHeader>().ReverseMap();
                 config.CreateMap<CartDetailVO, CartDetail>().ReverseMap();
-                config.CreateMap<CartVO, CartVO>().ReverseMap();
+                config.CreateMap<CartVO, Cart>().ReverseMap();
                 
             });
 
