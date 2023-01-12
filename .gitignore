@@ -399,4 +399,5 @@ FodyWeavers.xsd
 
 GeekShopping.Web/appsettings.json
 GeekShopping.ProductAPI/appsettings.json
+GeekShopping.CartAPI/appsettings.json
 GeekShopping.IdentityServer/appsettings.json
