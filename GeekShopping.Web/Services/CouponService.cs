@@ -1,9 +1,8 @@
 ﻿using GeekShopping.Web.Models;
 using GeekShopping.Web.Services.IServices;
-using System.Net.Http.Headers;
-using System.Net.Http;
 using GeekShopping.Web.Utils;
 using System.Net;
+using System.Net.Http.Headers;
 
 namespace GeekShopping.Web.Services
 {

@@ -1,8 +1,6 @@
-using AutoMapper;
-using GeekShopping.CartAPI.Config;
-using GeekShopping.CartAPI.Model.Context;
-using GeekShopping.CartAPI.RabbitMQSender;
-using GeekShopping.CartAPI.Repository;
+using GeekShopping.OrderAPI.MessageConsumer;
+using GeekShopping.OrderAPI.Model.Context;
+using GeekShopping.OrderAPI.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -16,18 +14,14 @@ builder.Services.AddDbContext<MySQLContext>(options => options.
                 new MySqlServerVersion(new Version(8, 0, 29))));
 
 
-IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();
-builder.Services.AddSingleton(mapper);
-builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+var builderDB = new DbContextOptionsBuilder<MySQLContext>();
+builderDB.UseMySql(builder.Configuration["ConnectionStrings:MySQLConnectionString"], 
+    new MySqlServerVersion(new Version(8, 0, 29)));
 
-builder.Services.AddScoped<ICartRepository, CartRepository>();
-builder.Services.AddScoped<ICouponRepository, CouponRepository>();
+builder.Services.AddSingleton(new OrderRepository(builderDB.Options));
 
-builder.Services.AddSingleton<IRabbitMQMessageSender, RabbitMQMessageSender>();
+builder.Services.AddHostedService<RabbitMQCheckoutConsumer>();
 
-builder.Services.AddHttpClient<ICouponRepository, CouponRepository>(
-        x => x.BaseAddress = new Uri(builder.Configuration["Services:CouponAPI"])
-    );
 
 builder.Services.AddControllers();
 
@@ -55,7 +49,7 @@ builder.Services.AddAuthorization(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "GeekShopping.CartAPI", Version = "v1" });
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "GeekShopping.OrderAPI", Version = "v1" });
     c.EnableAnnotations();
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
@@ -83,7 +77,6 @@ builder.Services.AddSwaggerGen(c =>
             }
         });
 });
-
 
 var app = builder.Build();
 
