@@ -23,7 +23,8 @@ namespace GeekShopping.CartAPI.Repository
 
         public async Task<CouponVO> GetCouponByCouponCode(string couponCode, string token)
         {
-            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            string tokenWothoutBearerPrefix = token.Split(" ")[1];
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokenWothoutBearerPrefix);
             var response = await _httpClient.GetAsync($"{BasePath}/{couponCode}");
 
             if (response.StatusCode != HttpStatusCode.OK)

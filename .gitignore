@@ -403,3 +403,4 @@ GeekShopping.CartAPI/appsettings.json
 GeekShopping.CouponAPI/appsettings.json
 GeekShopping.IdentityServer/appsettings.json
 GeekShopping.OrderAPI/appsettings.example.json
+GeekShopping.PaymentAPI/appsettings.json
