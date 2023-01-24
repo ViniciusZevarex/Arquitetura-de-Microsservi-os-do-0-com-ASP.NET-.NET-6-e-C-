@@ -402,6 +402,6 @@ GeekShopping.ProductAPI/appsettings.json
 GeekShopping.CartAPI/appsettings.json
 GeekShopping.CouponAPI/appsettings.json
 GeekShopping.IdentityServer/appsettings.json
-GeekShopping.OrderAPI/appsettings.example.json
+GeekShopping.OrderAPI/appsettings.json
 GeekShopping.PaymentAPI/appsettings.json
-GeekShopping.Email/appsettings.example.json
+GeekShopping.Email/appsettings.json
